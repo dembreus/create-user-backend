@@ -7,6 +7,15 @@ export default cors(router(
         const results = await Users.find({});
         await send(res, 200, results)
     }),
+    get('/:id', async (req, res) => {
+        const _id = req.params.id;
+        const user = await Users.findOne({ _id });
+
+        if(!user) {
+            return send(res, 404, { message: `Figure not found ${_id}`})
+        }
+        return send(res, 200, user)
+    }),
     post('/', async (req, res) => {
         const user = await json(req);
         const result = await Users.insert(user);
