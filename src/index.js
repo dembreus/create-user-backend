@@ -24,7 +24,9 @@ export default cors(router(
     del('/:id', async (req, res) => {
         const id = req.params.id;
         const deleted = await Users.remove({_id: id});
+        const find = await Users.find({});
         console.log(deleted);
+        console.log(find);
         return send(res, 200, {})
     })
 ))
