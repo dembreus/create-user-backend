@@ -24,6 +24,13 @@ export default cors(router(
         const result = await users.insert(user);
         return send(res, 201, result)
     }),
+    put('/:id', async (req, res) => {
+        const user = await json(req);
+        const id = req.params.id;
+        const result = await users.findOneAndUpdate({_id: id}, user);
+        console.log(result);
+        return send(res, 200, {ok: result})
+    }),
     del('/:id', async (req, res) => {
         const id = req.params.id;
         const deleted = await users.remove({_id: id});
@@ -31,5 +38,6 @@ export default cors(router(
         console.log(deleted);
         console.log(find);
         return send(res, 200, {})
-    })
+    }),
+    get('/*', (req, res) => send(res, 404, 'Not found route')),
 ))
