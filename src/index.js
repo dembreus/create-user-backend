@@ -25,9 +25,9 @@ export default cors(router(
         return send(res, 201, result)
     }),
     put('/:id', async (req, res) => {
-        const user = await json(req);
+        const {firstName, lastName, email, phoneNumber, password, confirmPassword} = await json(req);
         const id = req.params.id;
-        const result = await users.findOneAndUpdate({_id: id}, user);
+        const result = await users.findOneAndUpdate({_id: id}, {firstName, lastName, email, phoneNumber, password, confirmPassword});
         console.log(result);
         return send(res, 200, {ok: result})
     }),
