@@ -37,10 +37,14 @@ export default cors(
         password,
         confirmPassword
       } = await json(req);
-      const result = await users.findOneAndUpdate(
-        { _id: id },
-        { firstName, lastName, email, phoneNumber, password, confirmPassword }
-      );
+      const result = await users.findOneAndUpdate(id, {
+        firstName,
+        lastName,
+        email,
+        phoneNumber,
+        password,
+        confirmPassword
+      });
       console.log(result);
       return send(res, 200, result);
     }),
